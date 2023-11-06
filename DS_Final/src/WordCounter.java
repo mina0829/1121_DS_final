@@ -34,8 +34,7 @@ public class WordCounter {
     public int BoyerMoore(String T, String P){
     	int i = P.length() -1;
     	int j = P.length() -1;
-        
-        // Bonus: Implement Boyer-Moore Algorithm     
+           
     	while (i < T.length()) {
             if (P.charAt(j) == T.charAt(i)) {
                 if (j == 0) {
@@ -53,7 +52,6 @@ public class WordCounter {
     }
 
     public int last(char c, String P){
-    	// Bonus: Implement last occurence function
     	//從最後一個字符開始比較，找到目前比較字串中，與"關鍵字字尾"相同的字母索引值
     	for (int i = P.length() - 1; i >= 0; i--) {
             if (P.charAt(i) == c) {
@@ -73,7 +71,6 @@ public class WordCounter {
 		keyword = keyword.toUpperCase();
 	
 		int retVal = 0; 
-		// 1. calculates appearances of keyword (Bonus: Implement Boyer-Moore Algorithm)
 		int keywordLength = keyword.length();
 	    int contentLength = content.length();
 	    int index = 0;
