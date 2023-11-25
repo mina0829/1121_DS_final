@@ -19,22 +19,22 @@ public class HtmlScraping
     }
 
     private String fetchContent() throws IOException
-    {
-        URL url = new URL(this.urlStr);
-        URLConnection conn = url.openConnection();
-        InputStream in = conn.getInputStream();
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	{
+		URL url = new URL(this.urlStr);
+		URLConnection conn = url.openConnection();
+		InputStream in = conn.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
-        StringBuilder retVal = new StringBuilder();
+		String retVal = "";
 
-        String line;
-        while ((line = br.readLine()) != null)
-        {
-            retVal.append(line).append("\n");
-        }
+		String line = null;
+		while ((line = br.readLine()) != null)
+		{
+			retVal = retVal + line + "\n";
+		}
 
-        return retVal.toString();
-    }
+		return retVal;
+	}
 
     public void findChildren() throws IOException
     {
@@ -50,11 +50,13 @@ public class HtmlScraping
 
         while ((indexOfOpen = content.indexOf("<", indexOfOpen)) != -1)
         {
+        	System.out.println("in while");
             // Get full tag. e.g. "<div id="abcdefg">","</a>","</div>"...
             int indexOfClose = content.indexOf(">", indexOfOpen);
             
             // 確認 indexOfOpen 是否小於字符串的長度
             if (indexOfOpen < content.length() && indexOfClose != -1) {
+            	System.out.println("in if");
                 String fullTag = content.substring(indexOfOpen + 1, indexOfClose);
                 
                 // 使用 Jsoup 解析 HTML 標籤
