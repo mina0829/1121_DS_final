@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main 
 {
@@ -6,7 +7,10 @@ public class Main
 	{
 		try 
 		{
-			System.out.println(new GoogleQuery("Pokemon").query());
+			System.out.println("Enter Keyword: ");
+			Scanner sc = new Scanner(System.in);
+			String keyword = sc.next();
+			System.out.println(new GoogleQuery(keyword).query());
 		} 
 		catch (IOException e) 
 		{
