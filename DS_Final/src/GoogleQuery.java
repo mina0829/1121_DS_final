@@ -87,38 +87,37 @@ public class GoogleQuery
 		
 		for(Element li : lis)
 		{
-			try 
-			{
-				String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
-				String title = li.select("a").get(0).select(".vvjwJb").text();
-				
-				if(title.equals("")) 
-				{
-					continue;
-				}
-				
-				System.out.println("Title: " + title + " , url: " + citeUrl);
-				
-				WebPage rootPage = new WebPage(citeUrl, searchKeyword);
-				
-				WebTree tree = new WebTree(rootPage);
-				
-				//看有幾個子網站，加進來
-				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Publications.html", "Publication")));
-				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Projects.html", "Projects")));
-				tree.root.children.get(1).addChild(new WebNode(new WebPage("https://vlab.cs.ucsb.edu/stranger/", "Stranger")));
-				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Members.html", "Member")));
-				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Courses.html", "Course")));
-				
-				webTreeList.add(tree);
-				
-				//put title and pair into HashMap
-				retVal.put(title, citeUrl);
-
-			} catch (IndexOutOfBoundsException e) 
-			{
-				e.printStackTrace();
-			}
+		    try 
+		    {
+		        Elements anchorTags = li.select("a");
+		        
+		        // 檢查是否存在 <a> 標籤
+		        if (!anchorTags.isEmpty()) {
+		            String citeUrl = anchorTags.first().attr("href").replace("/url?q=", "");
+		            String title = anchorTags.first().select(".vvjwJb").text();
+		            
+		            if(title.equals("")) 
+		            {
+		                continue;
+		            }
+		            
+		            System.out.println("Title: " + title + " , url: " + citeUrl);
+		            
+		            WebPage rootPage = new WebPage(citeUrl, searchKeyword);
+		            WebTree tree = new WebTree(rootPage);
+		            HtmlScraping htmlScraping = new HtmlScraping(citeUrl);
+		            htmlScraping.findChildren();
+		            
+		            webTreeList.add(tree);
+		            
+		            // put title and pair into HashMap
+		            retVal.put(title, citeUrl);
+		        }
+		    } 
+		    catch (IndexOutOfBoundsException e) 
+		    {
+		        e.printStackTrace();
+		    }
 		}
 		
 		return retVal;
