@@ -46,20 +46,23 @@ public class GoogleQuery
 	{
 		String retVal = "";
 
-		URL u = new URL(url);
-		URLConnection conn = u.openConnection();
-		//set HTTP header
-		conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
-		InputStream in = conn.getInputStream();
+		try {
+	        URL u = new URL(url);
+	        URLConnection conn = u.openConnection();
+	        // set HTTP header
+	        conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
+	        InputStream in = conn.getInputStream();
 
-		InputStreamReader inReader = new InputStreamReader(in, "utf-8");
-		BufferedReader bufReader = new BufferedReader(inReader);
-		String line = null;
+	        InputStreamReader inReader = new InputStreamReader(in, "utf-8");
+	        BufferedReader bufReader = new BufferedReader(inReader);
+	        String line = null;
 
-		while((line = bufReader.readLine()) != null)
-		{
-			retVal += line;
-		}
+	        while ((line = bufReader.readLine()) != null) {
+	            retVal += line;
+	        }
+	    } catch (java.io.FileNotFoundException e) {
+	        System.out.println("File not found: " + e.getMessage());
+	    }
 		return retVal;
 	}
 	
@@ -89,30 +92,27 @@ public class GoogleQuery
 		{
 		    try 
 		    {
-		        Elements anchorTags = li.select("a");
-		        
-		        // 檢查是否存在 <a> 標籤
-		        if (!anchorTags.isEmpty()) {
-		        	String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
-					String title = li.select("a").get(0).select(".vvjwJb").text();
+		       String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
+		       String title = li.select("a").get(0).select(".vvjwJb").text();
 		            
-		            if(title.equals("")) 
-		            {
-		                continue;
-		            }
+		       if(title.equals("")) 
+		       {
+		       		continue;
+		       }
 		            
-		            System.out.println("Title: " + title + " , url: " + citeUrl);
+		       System.out.println("Title: " + title + " , url: " + citeUrl);
 		            
-		            WebPage rootPage = new WebPage(citeUrl, searchKeyword);
-		            WebTree tree = new WebTree(rootPage);
-		            HtmlScraping htmlScraping = new HtmlScraping(citeUrl);
-		            htmlScraping.findChildren();
+		       WebPage rootPage = new WebPage(citeUrl, searchKeyword);
+		       WebTree tree = new WebTree(rootPage);
+		       
+		       //這裡進來的連結可能是錯的，找不到
+		       HtmlScraping htmlScraping = new HtmlScraping(citeUrl);
+		       htmlScraping.findChildren();
 		            
-		            webTreeList.add(tree);
+		       webTreeList.add(tree);
 		            
-		            // put title and pair into HashMap
-		            retVal.put(title, citeUrl);
-		        }
+		       // put title and pair into HashMap
+		       retVal.put(title, citeUrl);
 		    } 
 		    catch (IndexOutOfBoundsException e) 
 		    {
