@@ -93,8 +93,8 @@ public class GoogleQuery
 		        
 		        // 檢查是否存在 <a> 標籤
 		        if (!anchorTags.isEmpty()) {
-		            String citeUrl = anchorTags.first().attr("href").replace("/url?q=", "");
-		            String title = anchorTags.first().select(".vvjwJb").text();
+		        	String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
+					String title = li.select("a").get(0).select(".vvjwJb").text();
 		            
 		            if(title.equals("")) 
 		            {
