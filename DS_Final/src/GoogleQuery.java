@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,10 +17,12 @@ public class GoogleQuery
 	public String searchKeyword;
 	public String url;
 	public String content;
+	public ArrayList<WebTree> webTreeList;
 	
 	public GoogleQuery(String searchKeyword)
 	{
 		this.searchKeyword = searchKeyword;
+		this.webTreeList = new ArrayList<WebTree>();
 		try 
 		{
 			// This part has been specially handled for Chinese keyword processing. 
@@ -96,12 +99,25 @@ public class GoogleQuery
 				
 				System.out.println("Title: " + title + " , url: " + citeUrl);
 				
+				WebPage rootPage = new WebPage(citeUrl, searchKeyword);
+				
+				WebTree tree = new WebTree(rootPage);
+				
+				//看有幾個子網站，加進來
+				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Publications.html", "Publication")));
+				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Projects.html", "Projects")));
+				tree.root.children.get(1).addChild(new WebNode(new WebPage("https://vlab.cs.ucsb.edu/stranger/", "Stranger")));
+				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Members.html", "Member")));
+				tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Courses.html", "Course")));
+				
+				webTreeList.add(tree);
+				
 				//put title and pair into HashMap
 				retVal.put(title, citeUrl);
 
 			} catch (IndexOutOfBoundsException e) 
 			{
-//				e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		
