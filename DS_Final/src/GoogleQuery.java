@@ -1,9 +1,13 @@
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -33,7 +37,7 @@ public class GoogleQuery
 			String encodeKeyword=java.net.URLEncoder.encode(searchKeyword,"utf-8");
 			this.url = "https://www.google.com/search?q="+encodeKeyword+"&oe=utf8&num=20";
 			
-			// this.url = "https://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=20";
+			//this.url = "https://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=20";
 		}
 		catch (Exception e)
 		{
@@ -92,27 +96,33 @@ public class GoogleQuery
 		{
 		    try 
 		    {
-		       String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
+		    	String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
 		       String title = li.select("a").get(0).select(".vvjwJb").text();
 		            
 		       if(title.equals("")) 
 		       {
 		       		continue;
 		       }
+		       
+		       int index = citeUrl.indexOf("&");
+		        if (index != -1) {
+		        	citeUrl = citeUrl.substring(0, index);
+		        }
+		       
+		       String newCiteUrl = URLDecoder.decode(citeUrl, "UTF-8");
+		       
+		       System.out.println("Title: " + title + " , url: " + newCiteUrl);
 		            
-		       System.out.println("Title: " + title + " , url: " + citeUrl);
-		            
-		       WebPage rootPage = new WebPage(citeUrl, searchKeyword);
+		       WebPage rootPage = new WebPage(newCiteUrl, searchKeyword);
 		       WebTree tree = new WebTree(rootPage);
 		       
-		       //這裡進來的連結可能是錯的，找不到
-		       HtmlScraping htmlScraping = new HtmlScraping(citeUrl);
+		       HtmlScraping htmlScraping = new HtmlScraping(newCiteUrl);
 		       htmlScraping.findChildren();
 		            
 		       webTreeList.add(tree);
 		            
 		       // put title and pair into HashMap
-		       retVal.put(title, citeUrl);
+		       retVal.put(title, newCiteUrl);
 		    } 
 		    catch (IndexOutOfBoundsException e) 
 		    {
