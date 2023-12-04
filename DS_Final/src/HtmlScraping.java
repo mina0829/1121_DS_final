@@ -50,13 +50,11 @@ public class HtmlScraping
 
         while ((indexOfOpen = content.indexOf("<", indexOfOpen)) != -1)
         {
-        	System.out.println("in while");
             // Get full tag. e.g. "<div id="abcdefg">","</a>","</div>"...
             int indexOfClose = content.indexOf(">", indexOfOpen);
             
             // 確認 indexOfOpen 是否小於字符串的長度
             if (indexOfOpen < content.length() && indexOfClose != -1) {
-            	System.out.println("in if");
                 String fullTag = content.substring(indexOfOpen + 1, indexOfClose);
                 
                 // 使用 Jsoup 解析 HTML 標籤
