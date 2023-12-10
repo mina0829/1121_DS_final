@@ -63,6 +63,7 @@ public class HtmlScraping
 
                 for (Element link : links) {
                     // 取得子網站連結
+                	System.out.println("in for");
                     String subdomain = link.attr("abs:href");
                     System.out.println("Subdomain: " + subdomain);
                 }
