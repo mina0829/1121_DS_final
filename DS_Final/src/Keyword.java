@@ -28,4 +28,8 @@ public class Keyword {
     {
     	return weight;
     }
+    
+    public void setCount(int count) {
+    	this.count = count;
+    }
 }
