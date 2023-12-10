@@ -12,6 +12,17 @@ public class Main
 	{
 		try 
 		{
+			File file = new File("input.txt");
+			Scanner fileSc = new Scanner(file);
+			KeywordList kLst = new KeywordList();
+			
+			if(fileSc.hasNext()) {
+				String name = fileSc.next();
+        		int weight = fileSc.nextInt();
+        		Keyword keyword = new Keyword(name, 0, weight);
+        		kLst.add(keyword);
+			}
+			
 			System.out.println("Enter Keyword: ");
 			Scanner sc = new Scanner(System.in);
 			String keyword = sc.next();
