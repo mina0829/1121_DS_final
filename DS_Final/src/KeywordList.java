@@ -39,6 +39,12 @@ public class KeywordList
 			lst.add(keyword);
 		}
 	}
+	
+	public void resetCount() {
+		for(int i =0 ; i < lst.size(); i++) {
+			lst.get(i).count = 0;
+		}
+	}
 
 	public void outputIndex(int i)
 	{
