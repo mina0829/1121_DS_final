@@ -53,11 +53,9 @@ public class HtmlScraping
             // Get full tag. e.g. "<div id="abcdefg">","</a>","</div>"...
             int indexOfClose = content.indexOf(">", indexOfOpen);
             
-            // 確認 indexOfOpen 是否小於字符串的長度
             if (indexOfOpen < content.length() && indexOfClose != -1) {
                 String fullTag = content.substring(indexOfOpen + 1, indexOfClose);
                 
-                // 使用 Jsoup 解析 HTML 標籤
                 Document doc = Jsoup.parse(fullTag);
                 Elements links = doc.select("a[href]");
 
@@ -70,7 +68,6 @@ public class HtmlScraping
 
                 indexOfOpen = indexOfClose + 1;
             } else {
-                // 如果 indexOfOpen 大於等於字符串的長度，結束循環
                 break;
             }
         }
