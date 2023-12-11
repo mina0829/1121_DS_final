@@ -56,8 +56,9 @@ public class HtmlScraping
             if (indexOfOpen < content.length() && indexOfClose != -1) {
                 String fullTag = content.substring(indexOfOpen + 1, indexOfClose);
                 
+                //這裡再調整
                 Document doc = Jsoup.parse(fullTag);
-                Elements links = doc.select("a[href]");
+                Elements links = doc.select("a");
 
                 for (Element link : links) {
                     // 取得子網站連結
