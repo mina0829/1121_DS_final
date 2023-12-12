@@ -14,21 +14,25 @@ public class WordCounter {
     	this.urlStr = urlStr;
     }
     
-    private String fetchContent() throws IOException{
-		URL url = new URL(this.urlStr);
-		URLConnection conn = url.openConnection();
-		InputStream in = conn.getInputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-	
-		String retVal = "";
-	
-		String line = null;
+    private String fetchContent(){
+    	String retVal = "";
+		try {
+			URL url = new URL(this.urlStr);
+	        URLConnection conn = url.openConnection();
+	        InputStream in = conn.getInputStream();
+	        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	        
+	        String line = null;
 		
-		while ((line = br.readLine()) != null){
-		    retVal = retVal + line + "\n";
-		}
-	
-		return retVal;
+	        while ((line = br.readLine()) != null){
+	        	retVal = retVal + line + "\n";
+	        }
+	    } catch (Exception e) {
+	        // 捕獲例外，印出錯誤消息
+	        System.err.println("Error processing link");
+	        e.printStackTrace();
+	    }
+	    return retVal;
     }
     
     public int BoyerMoore(String T, String P){
