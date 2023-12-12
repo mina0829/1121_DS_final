@@ -9,31 +9,11 @@ import java.net.URLDecoder;
 public class WordCounter {
 	private String urlStr;
     private String content;
+    private FetchContent fC;
     
     public WordCounter(String urlStr){
     	this.urlStr = urlStr;
-    }
-    
-    private String fetchContent(){
-    	String retVal = "";
-    	//要處理HTTP400、403的問題，不然連結都讀不到
-		try {
-			URL url = new URL(this.urlStr);
-	        URLConnection conn = url.openConnection();
-	        InputStream in = conn.getInputStream();
-	        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-	        
-	        String line = null;
-		
-	        while ((line = br.readLine()) != null){
-	        	retVal = retVal + line + "\n";
-	        }
-	    } catch (Exception e) {
-	        // 捕獲例外，印出錯誤消息
-	        System.err.println("Error processing link");
-	        e.printStackTrace();
-	    }
-	    return retVal;
+    	fC = new FetchContent(urlStr);
     }
     
     public int BoyerMoore(String T, String P){
@@ -68,7 +48,7 @@ public class WordCounter {
     
     public int countKeyword(String keyword) throws IOException{
 		if (content == null){
-		    content = fetchContent();
+		    content = fC.getContent();
 		}
 		
 		//To do a case-insensitive search, we turn the whole content and keyword into upper-case:
