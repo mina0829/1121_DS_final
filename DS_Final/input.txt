@@ -6,3 +6,14 @@
 新聞 -2
 字典 -4
 百科 -4
+singer 2
+lyrics 4
+composition 1
+arrangement 1
+News -2
+Dictionary -4
+Encyclopedia -4
+アレンジメント1
+ニュース-2
+辞書-4
+百科事典-4
