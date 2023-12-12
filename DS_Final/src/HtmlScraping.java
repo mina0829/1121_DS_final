@@ -17,6 +17,7 @@ public class HtmlScraping
     public HtmlScraping(String urlStr)
     {
         this.urlStr = urlStr;
+        this.urls = new ArrayList<String>();
     }
 
     private String fetchContent() throws IOException
@@ -37,7 +38,7 @@ public class HtmlScraping
 		return retVal;
 	}
 
-    public void findChildren() throws IOException
+    public ArrayList<String> findChildren() throws IOException
     {
         if (content == null)
         {
@@ -50,9 +51,12 @@ public class HtmlScraping
 		Elements lis = doc.select("a");
 		
 		for (Element link : lis) {
-			System.out.println("in for");
 			String subdomain = link.attr("abs:href");
-			System.out.println("Subdomain: " + subdomain);
+			//System.out.println("Subdomain: " + subdomain);
+			if(!subdomain.equals("")) {
+				urls.add(subdomain);
+			}
 		}
+		return urls;
     }
 }
