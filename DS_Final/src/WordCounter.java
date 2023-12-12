@@ -16,6 +16,7 @@ public class WordCounter {
     
     private String fetchContent(){
     	String retVal = "";
+    	//要處理HTTP400、403的問題，不然連結都讀不到
 		try {
 			URL url = new URL(this.urlStr);
 	        URLConnection conn = url.openConnection();
