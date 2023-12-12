@@ -130,6 +130,7 @@ public class GoogleQuery
 		       webTreeList.add(tree);
 		       
 		       tree.setPostOrderScore(keywords);
+		       System.out.println(tree.root.nodeScore);
 		       
 		       retVal.put(title, newCiteUrl);
 		    } 
