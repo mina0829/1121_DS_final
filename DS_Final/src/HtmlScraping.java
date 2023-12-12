@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class HtmlScraping
@@ -54,7 +55,9 @@ public class HtmlScraping
 			String subdomain = link.attr("abs:href");
 			//System.out.println("Subdomain: " + subdomain);
 			if(!subdomain.equals("")) {
-				urls.add(subdomain);
+				String newurl = URLDecoder.decode(subdomain, "UTF-8");
+				//System.out.println(newurl); 有加到
+				urls.add(newurl);
 			}
 		}
 		return urls;
