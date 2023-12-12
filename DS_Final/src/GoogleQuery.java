@@ -53,7 +53,7 @@ public class GoogleQuery
 	private String fetchContent() throws IOException
 	{
 		String retVal = "";
-
+		//要處理HTTP400、403的問題，不然連結都讀不到
 		try {
 	        URL u = new URL(url);
 	        URLConnection conn = u.openConnection();
