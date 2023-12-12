@@ -23,12 +23,14 @@ public class GoogleQuery
 	public String content;
 	public ArrayList<WebTree> webTreeList;
 	public ArrayList<String> childrenUrl;
+	public ArrayList<Keyword> keywords;
 	
-	public GoogleQuery(String searchKeyword)
+	public GoogleQuery(String searchKeyword, ArrayList<Keyword> keywords)
 	{
 		this.searchKeyword = searchKeyword;
 		this.webTreeList = new ArrayList<WebTree>();
 		this.childrenUrl = new ArrayList<String>();
+		this.keywords = keywords;
 		try 
 		{
 			// This part has been specially handled for Chinese keyword processing. 
@@ -127,7 +129,8 @@ public class GoogleQuery
 		            
 		       webTreeList.add(tree);
 		       
-		       // put title and pair into HashMap
+		       tree.setPostOrderScore(keywords);
+		       
 		       retVal.put(title, newCiteUrl);
 		    } 
 		    catch (IndexOutOfBoundsException e) 
