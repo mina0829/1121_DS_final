@@ -6,12 +6,13 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Stack;
+import java.util.ArrayList;
 
 public class HtmlScraping
 {
     private String urlStr;
     private String content;
+    private ArrayList<String> urls;
 
     public HtmlScraping(String urlStr)
     {
