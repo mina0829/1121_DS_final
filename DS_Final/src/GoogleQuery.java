@@ -22,11 +22,13 @@ public class GoogleQuery
 	public String url;
 	public String content;
 	public ArrayList<WebTree> webTreeList;
+	public ArrayList<String> childrenUrl;
 	
 	public GoogleQuery(String searchKeyword)
 	{
 		this.searchKeyword = searchKeyword;
 		this.webTreeList = new ArrayList<WebTree>();
+		this.childrenUrl = new ArrayList<String>();
 		try 
 		{
 			// This part has been specially handled for Chinese keyword processing. 
@@ -113,14 +115,18 @@ public class GoogleQuery
 		       
 		       System.out.println("Title: " + title + " , url: " + newCiteUrl);
 		            
-		       WebPage rootPage = new WebPage(newCiteUrl, searchKeyword);
+		       WebPage rootPage = new WebPage(newCiteUrl);
 		       WebTree tree = new WebTree(rootPage);
 		       
 		       HtmlScraping htmlScraping = new HtmlScraping(newCiteUrl);
-		       htmlScraping.findChildren();
+		       childrenUrl = htmlScraping.findChildren();
+		       
+		       for(String url: childrenUrl) {
+		    	   tree.root.addChild(new WebNode(new WebPage(url)));
+		       }
 		            
 		       webTreeList.add(tree);
-		            
+		       
 		       // put title and pair into HashMap
 		       retVal.put(title, newCiteUrl);
 		    } 
