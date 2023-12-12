@@ -42,35 +42,16 @@ public class HtmlScraping
         {
             content = fetchContent();
         }
-
-        /* Create a stack to store the tag */
-        Stack<String> tagStack = new Stack<>();
-
-        int indexOfOpen = 0;
-
-        while ((indexOfOpen = content.indexOf("<", indexOfOpen)) != -1)
-        {
-            // Get full tag. e.g. "<div id="abcdefg">","</a>","</div>"...
-            int indexOfClose = content.indexOf(">", indexOfOpen);
-            
-            if (indexOfOpen < content.length() && indexOfClose != -1) {
-                String fullTag = content.substring(indexOfOpen + 1, indexOfClose);
-                
-                //這裡再調整
-                Document doc = Jsoup.parse(fullTag);
-                Elements links = doc.select("a");
-
-                for (Element link : links) {
-                    // 取得子網站連結
-                	System.out.println("in for");
-                    String subdomain = link.attr("abs:href");
-                    System.out.println("Subdomain: " + subdomain);
-                }
-
-                indexOfOpen = indexOfClose + 1;
-            } else {
-                break;
-            }
-        }
+        
+        Document doc = Jsoup.parse(content);
+		
+		//select particular element(tag) which you want 
+		Elements lis = doc.select("a");
+		
+		for (Element link : lis) {
+			System.out.println("in for");
+			String subdomain = link.attr("abs:href");
+			System.out.println("Subdomain: " + subdomain);
+		}
     }
 }
