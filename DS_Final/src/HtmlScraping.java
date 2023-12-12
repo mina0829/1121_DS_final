@@ -56,8 +56,10 @@ public class HtmlScraping
 			//System.out.println("Subdomain: " + subdomain);
 			if(!subdomain.equals("")) {
 				String newurl = URLDecoder.decode(subdomain, "UTF-8");
-				//System.out.println(newurl); 有加到
-				urls.add(newurl);
+				if (!newurl.toLowerCase().contains("facebook")|| !newurl.toLowerCase().contains("tel") || !newurl.toLowerCase().contains("sharer")) {
+			        //System.out.println(newurl); //有加到
+			        urls.add(newurl);
+			    }
 			}
 		}
 		return urls;
