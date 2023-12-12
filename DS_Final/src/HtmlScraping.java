@@ -14,40 +14,20 @@ public class HtmlScraping
     private String urlStr;
     private String content;
     private ArrayList<String> urls;
+    private FetchContent fC;
 
     public HtmlScraping(String urlStr)
     {
         this.urlStr = urlStr;
         this.urls = new ArrayList<String>();
+        fC = new FetchContent(urlStr);
     }
-
-    private String fetchContent() throws IOException
-	{
-    	String retVal = "";
-		try {
-			URL url = new URL(this.urlStr);
-	        URLConnection conn = url.openConnection();
-	        InputStream in = conn.getInputStream();
-	        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-	        
-	        String line = null;
-		
-	        while ((line = br.readLine()) != null){
-	        	retVal = retVal + line + "\n";
-	        }
-	    } catch (Exception e) {
-	        // 捕獲例外，印出錯誤消息
-	        System.err.println("Error processing link");
-	        e.printStackTrace();
-	    }
-	    return retVal;
-	}
 
     public ArrayList<String> findChildren() throws IOException
     {
         if (content == null)
         {
-            content = fetchContent();
+            content = fC.getContent();
         }
         
         Document doc = Jsoup.parse(content);
@@ -60,10 +40,7 @@ public class HtmlScraping
 			//System.out.println("Subdomain: " + subdomain);
 			if(!subdomain.equals("")) {
 				String newurl = URLDecoder.decode(subdomain, "UTF-8");
-				if (!newurl.toLowerCase().contains("facebook")|| !newurl.toLowerCase().contains("tel") || !newurl.toLowerCase().contains("sharer")) {
-			        //System.out.println(newurl); //有加到
-			        urls.add(newurl);
-			    }
+				urls.add(newurl);
 			}
 		}
 		return urls;
