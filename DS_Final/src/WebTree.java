@@ -29,4 +29,8 @@ public class WebTree
 		}
 		return retVal;
 	}
+	
+	public int compareTo(WebTree tree) {
+		return Double.compare(this.root.nodeScore, tree.root.nodeScore);
+    }
 }
