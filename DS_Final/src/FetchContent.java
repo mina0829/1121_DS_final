@@ -14,6 +14,7 @@ public class FetchContent {
     	this.content = "";
     }
     
+    //讀取網頁內容之功能
     public String getContent() {
     	//要處理HTTP400、403的問題，不然連結都讀不到
 		try {
