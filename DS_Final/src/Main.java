@@ -58,6 +58,7 @@ public class Main extends HttpServlet {
 			request.getRequestDispatcher("Search.jsp").forward(request, response);
 			return;
 		}
+		//連接到GoogleQuery class，進行搜尋
 		GoogleQuery google = new GoogleQuery(request.getParameter("keyword"), keywords);
 		HashMap<String, String> query = google.query();
 		
