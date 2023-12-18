@@ -32,6 +32,7 @@ public class GoogleQuery
 		this.webTreeList = new ArrayList<WebTree>();
 		this.childrenUrl = new ArrayList<String>();
 		this.keywords = keywords;
+		this.TS = new WebTreeSort();
 		try 
 		{
 			// 產生google搜尋網址
@@ -125,7 +126,7 @@ public class GoogleQuery
 		       tree.setPostOrderScore(keywords);
 		       System.out.println(tree.root.nodeScore);
 		       
-		       this.TS = new WebTreeSort(webTreeList);
+		       TS.sort(webTreeList);
 		       
 		       retVal.put(title, newCiteUrl);
 		    } 
