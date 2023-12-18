@@ -22,7 +22,8 @@ public class HtmlScraping
         this.urls = new ArrayList<String>();
         fC = new FetchContent(urlStr);
     }
-
+    
+    //抓取內容中的子網站連結
     public ArrayList<String> findChildren() throws IOException
     {
         if (content == null)
