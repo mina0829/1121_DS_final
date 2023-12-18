@@ -120,12 +120,13 @@ public class GoogleQuery
 		       for(String url: childrenUrl) {
 		    	   tree.root.addChild(new WebNode(new WebPage(url)));
 		       }
-		            
-		       webTreeList.add(tree);
 		       
+		       //計算出這個tree的總分(root是加總)
 		       tree.setPostOrderScore(keywords);
 		       System.out.println(tree.root.nodeScore);
 		       
+		       //排序所有的tree分數，大的在前
+		       webTreeList.add(tree);
 		       TS.sort(webTreeList);
 		       
 		       retVal.put(title, newCiteUrl);
