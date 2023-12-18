@@ -40,7 +40,7 @@ public class WebTreeSort {
         int i = left - 1;
 
         for (int j = left; j < right; j++) {
-            if (webTreeList.get(j).compareTo(pivot) <= 0) {
+            if (webTreeList.get(j).compareTo(pivot) >= 0) {
                 i++;
                 swap(i, j);
             }
