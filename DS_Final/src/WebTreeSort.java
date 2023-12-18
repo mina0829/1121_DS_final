@@ -7,6 +7,7 @@ public class WebTreeSort {
 		this.webTreeList = new ArrayList<WebTree>();
 	}
 	
+	//以下就是排序，若最後順序出錯就調整這邊
 	public void sort(ArrayList<WebTree> webTreeList) {
 		
 		if (webTreeList.size() == 0)
