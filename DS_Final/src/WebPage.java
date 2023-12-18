@@ -12,7 +12,8 @@ public class WebPage
 		this.url = url;
 		this.counter = new WordCounter(url);
 	}
-
+	
+	//用關鍵字&權重計算網頁分數
 	public void setScore(ArrayList<Keyword> keywords) throws IOException
 	{
 		score = 0;
