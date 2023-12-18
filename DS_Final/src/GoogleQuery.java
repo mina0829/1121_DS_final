@@ -33,15 +33,9 @@ public class GoogleQuery
 		this.keywords = keywords;
 		try 
 		{
-			// This part has been specially handled for Chinese keyword processing. 
-			// You can comment out the following two lines 
-			// and use the line of code in the lower section. 
-			// Also, consider why the results might be incorrect 
-			// when entering Chinese keywords.
+			// 產生google搜尋網址
 			String encodeKeyword=java.net.URLEncoder.encode(searchKeyword,"utf-8");
 			this.url = "https://www.google.com/search?q="+encodeKeyword+"&oe=utf8&num=20";
-			
-			//this.url = "https://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=20";
 		}
 		catch (Exception e)
 		{
@@ -53,11 +47,11 @@ public class GoogleQuery
 	private String fetchContent() throws IOException
 	{
 		String retVal = "";
-		//要處理HTTP400、403的問題，不然連結都讀不到
+		//可以嘗試處理HTTP400、403的問題，不然連結都讀不到
 		try {
 	        URL u = new URL(url);
 	        URLConnection conn = u.openConnection();
-	        // set HTTP header
+	        
 	        conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
 	        InputStream in = conn.getInputStream();
 
@@ -83,16 +77,10 @@ public class GoogleQuery
 
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
-		/* 
-		 * some Jsoup source
-		 * https://jsoup.org/apidocs/org/jsoup/nodes/package-summary.html
-		 * https://www.1ju.org/jsoup/jsoup-quick-start
- 		 */
-		
-		//using Jsoup analyze html string
+		//讀取搜尋頁面的內容
 		Document doc = Jsoup.parse(content);
 		
-		//select particular element(tag) which you want 
+		//挑選出想要的內容；搜尋結果之標題與網址 
 		Elements lis = doc.select("div");
 		lis = lis.select(".kCrYT");
 		
@@ -113,16 +101,20 @@ public class GoogleQuery
 		        	citeUrl = citeUrl.substring(0, index);
 		        }
 		       
+		        //解碼獲得之連結
 		       String newCiteUrl = URLDecoder.decode(citeUrl, "UTF-8");
 		       
 		       System.out.println("Title: " + title + " , url: " + newCiteUrl);
-		            
+		       
+		       //將獲得之連結建立為WebPage，並作為WebTree的root
 		       WebPage rootPage = new WebPage(newCiteUrl);
 		       WebTree tree = new WebTree(rootPage);
 		       
+		       //用HtmlScraping class讀取此連結之網頁內容、抓出children的連結
 		       HtmlScraping htmlScraping = new HtmlScraping(newCiteUrl);
 		       childrenUrl = htmlScraping.findChildren();
 		       
+		       //將children加入tree中
 		       for(String url: childrenUrl) {
 		    	   tree.root.addChild(new WebNode(new WebPage(url)));
 		       }
