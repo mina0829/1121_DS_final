@@ -24,6 +24,7 @@ public class GoogleQuery
 	public ArrayList<WebTree> webTreeList;
 	public ArrayList<String> childrenUrl;
 	public ArrayList<Keyword> keywords;
+	public WebTreeSort TS;
 	
 	public GoogleQuery(String searchKeyword, ArrayList<Keyword> keywords)
 	{
@@ -123,6 +124,8 @@ public class GoogleQuery
 		       
 		       tree.setPostOrderScore(keywords);
 		       System.out.println(tree.root.nodeScore);
+		       
+		       this.TS = new WebTreeSort(webTreeList);
 		       
 		       retVal.put(title, newCiteUrl);
 		    } 
