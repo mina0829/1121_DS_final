@@ -1,21 +1,37 @@
-import java.util.Scanner;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main 
-{
-	public static void main(String[] args) 
-	{
-		try 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/TestProject")
+public class Main extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Keyword> keywords;
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Main() {
+        super();
+        // TODO Auto-generated constructor stub
+        try 
 		{
 			File file = new File("input.txt");
 			Scanner fileSc = new Scanner(file);
-			ArrayList keywords = new ArrayList<Keyword>();
+			keywords = new ArrayList<Keyword>();
 			
 			if(fileSc.hasNext()) {
 				String name = fileSc.next();
@@ -23,15 +39,49 @@ public class Main
         		Keyword keyword = new Keyword(name, 0, weight);
         		keywords.add(keyword);
 			}
+		}catch(Exception e) {
 			
-			System.out.println("Enter Keyword: ");
-			Scanner sc = new Scanner(System.in);
-			String keyword = sc.next();
-			System.out.println(new GoogleQuery(keyword, keywords).query());
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
 		}
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		if(request.getParameter("keyword")== null) {
+			String requestUri = request.getRequestURI();
+			request.setAttribute("requestUri", requestUri);
+			request.getRequestDispatcher("Search.jsp").forward(request, response);
+			return;
+		}
+		GoogleQuery google = new GoogleQuery(request.getParameter("keyword"), keywords);
+		HashMap<String, String> query = google.query();
+		
+		String[][] s = new String[query.size()][2];
+		request.setAttribute("query", s);
+		int num = 0;
+		for(Entry<String, String> entry : query.entrySet()) {
+		    String key = entry.getKey();
+		    String value = entry.getValue();
+		    s[num][0] = key;
+		    s[num][1] = value;
+		    num++;
+		}
+		request.getRequestDispatcher("googleitem.jsp")
+		 .forward(request, response); 
+		
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
 }
