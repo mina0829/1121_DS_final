@@ -1,0 +1,13 @@
+歌手 2
+作詞 3
+作曲 1
+編曲 1
+歌詞 3
+新聞 -2
+字典 -4
+百科 -4
+singer 2
+lyrics 4
+News -2
+Dictionary -4
+Encyclopedia -4
