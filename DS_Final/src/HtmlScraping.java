@@ -23,7 +23,7 @@ public class HtmlScraping
         fC = new FetchContent(urlStr);
     }
     
-    //抓取內容中的子網站連結
+    //抓取內容中的子網站連結，限制抓50個不然跑太慢、範圍太廣
     public ArrayList<String> findChildren() throws IOException
     {
         if (content == null)
@@ -35,13 +35,17 @@ public class HtmlScraping
 		
 		//select particular element(tag) which you want 
 		Elements lis = doc.select("a");
-		
+		int count = 0;
 		for (Element link : lis) {
+			if(count>50){
+				break;
+			}
 			String subdomain = link.attr("abs:href");
 			//System.out.println("Subdomain: " + subdomain);
 			if(!subdomain.equals("")) {
 				String newurl = URLDecoder.decode(subdomain, "UTF-8");
 				urls.add(newurl);
+				count++;
 			}
 		}
 		return urls;
