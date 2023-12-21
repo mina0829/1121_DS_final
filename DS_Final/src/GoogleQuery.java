@@ -139,4 +139,86 @@ public class GoogleQuery
 		
 		return retVal;
 	}
+
+	//可能的做法1：將query改為ArrayList型態以便有序排放
+	/*public ArrayList<WebTree>query() throws IOException {
+		if (content == null) {
+			content = fetchContent();
+		}
+
+		HashMap<String, String> retVal = new HashMap<String, String>();//(title and url)
+		
+
+                //另一種可能的做法：使用TreeMap自動排序
+		//TreeMap<Double, String> sortedScores = new TreeMap<Double, String>();
+
+
+		// 讀取搜尋頁面的內容
+		Document doc = Jsoup.parse(content);
+		//
+		// 挑選出想要的內容；搜尋結果之標題與網址
+		Elements lis = doc.select("div");
+		lis = lis.select(".kCrYT");
+
+		for (Element li : lis) {
+			try {
+				String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
+				String title = li.select("a").get(0).select(".vvjwJb").text();
+
+				if (title.equals("")) {
+					continue;
+				}
+
+				int index = citeUrl.indexOf("&");
+				if (index != -1) {
+					citeUrl = citeUrl.substring(0, index);
+				}
+
+				// 解碼獲得之連結
+				String newCiteUrl = URLDecoder.decode(citeUrl, "UTF-8");
+
+				System.out.println("Title: " + title + " , url: " + newCiteUrl);
+
+				// 將獲得之連結建立為WebPage，並作為WebTree的root
+				WebPage rootPage = new WebPage(newCiteUrl);
+				WebTree tree = new WebTree(rootPage);
+
+				// 用HtmlScraping class讀取此連結之網頁內容、抓出children的連結
+				HtmlScraping htmlScraping = new HtmlScraping(newCiteUrl);
+				childrenUrl = htmlScraping.findChildren();
+
+				// 將children加入tree中
+				for (String url : childrenUrl) {
+					tree.root.addChild(new WebNode(new WebPage(url)));
+				}
+				
+
+				// 計算出這個tree的總分(root是加總)
+				tree.setPostOrderScore(keywords);
+				System.out.println(tree.root.nodeScore);
+
+
+				// 排序所有的tree分數，大的在前
+				retVal.put(title, newCiteUrl);
+
+				
+				webTreeList.add(tree);
+				TS.sort(webTreeList);
+				
+				//要回傳一arraylist webTreeList
+				
+				ArrayList<WebTree> rsTree = TS.getSortedList();
+
+				
+				return rsTree;
+
+
+			} catch (IndexOutOfBoundsException e) {
+				// e.printStackTrace();
+			}
+		}
+		
+		return webTreeList;
+		
+	}*/
 }
