@@ -210,7 +210,6 @@ public class GoogleQuery
 				ArrayList<WebTree> rsTree = TS.getSortedList();
 
 				
-				return rsTree;
 
 
 			} catch (IndexOutOfBoundsException e) {
