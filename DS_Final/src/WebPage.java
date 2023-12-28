@@ -6,13 +6,17 @@ public class WebPage
 	public String url;
 	public WordCounter counter;
 	public double score;
+	public String name;
 
 	public WebPage(String url)
 	{
 		this.url = url;
 		this.counter = new WordCounter(url);
+		this.name = name;
 	}
-	
+	public void setTitle(String title) {
+		this.name = title;
+	}
 	//用關鍵字&權重計算網頁分數
 	public void setScore(ArrayList<Keyword> keywords) throws IOException
 	{
