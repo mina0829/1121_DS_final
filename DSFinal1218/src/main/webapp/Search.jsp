@@ -261,7 +261,7 @@ onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" />
 </div>
 
 <div>
-<input type='text' name='searchNum' value='10' style='color:#0489B1;border-style:none;background-color:#0489B1'>
+<input type='text' name='searchNum' value='3' style='color:#0489B1;border-style:none;background-color:#0489B1'>
 </div>
 <div>
 <input type='image' src="loupe-2.png" 
@@ -270,7 +270,7 @@ margin-left:368px '/>
 
 </div>
 <div>
-<a href ='http://localhost:8080/DSFinal1218/googleitem'>;
+<a href ='http://localhost:8080/DSFinal1218/Main'>;
 </a>
 </div>
 </form>
