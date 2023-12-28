@@ -3,14 +3,17 @@ import java.util.ArrayList;
 public class WebTreeSort {
 	public ArrayList<WebTree> webTreeList;
 	
-	public WebTreeSort() {
-		this.webTreeList = new ArrayList<WebTree>();
+	public WebTreeSort(ArrayList<WebTree>webTreeList) {
+		this.webTreeList = webTreeList;
+	}
+	public ArrayList<WebTree> getSortedList(){
+		return this.webTreeList;
 	}
 	
 	//以下就是排序，若最後順序出錯就調整這邊
-	public void sort(ArrayList<WebTree> webTreeList) {
+	public void sort() {
 		
-		if (webTreeList.size() == 0)
+		if (this.webTreeList.size() == 0)
 		{
 			System.out.println("InvalidOperation");
 		}
