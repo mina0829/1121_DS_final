@@ -7,6 +7,7 @@ public class WebPage
 	public WordCounter counter;
 	public double score;
 	public ArrayList<Keyword> keywords;
+	public String name;
 
 	public WebPage(String url)
 	{
@@ -14,6 +15,11 @@ public class WebPage
 		this.url = url;
 		this.counter = new WordCounter(url);
 		this.keywords = new ArrayList<>();
+		this.name = name;
+	}
+	
+	public void setTitle(String title) {
+		this.name = title;
 	}
 	
 	//用關鍵字&權重計算網頁分數
