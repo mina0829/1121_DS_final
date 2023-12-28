@@ -25,16 +25,20 @@ text-decoration:underline;
 <body>
 <body style='background-color: #01A9DB'>
 <form action='${requestUri}' method='get'>
-
+<!--把query結果放到網頁裡>
+	<!--key值為title><-->
 	<div style='position: absolute;margin-top:190px;margin-left:50px'>
 		<%
 		String[][] orderList = (String[][]) request.getAttribute("query");
 		for (int i = 0; i < orderList.length; i++) {
 			String s=orderList[i][1];
-			s=s.substring(7);
+			// if (s.length() > 7) {
+		            //s = s.substring(7);
+		      //  }
+			//s=s.substring(7);
 		%>
 		
-		<a href='<%=s%>'><%=orderList[i][0]%> </a> <br>連結<br>
+		<a href='<%=s%>'><%=orderList[i][0]%> </a> <br><br>
 		<br>
 		<%
 }
