@@ -199,12 +199,8 @@
     top:50px;
   }
 }
-
-.box:after{
-
-}
-
 </style>
+
 <script type="text/javascript">
 function click10() {
 	document.getElementsByName("searchNum")[0].value = 10;
@@ -226,7 +222,6 @@ function click80() {
 </head>
 
 <body>
-
 <form action='${requestUri}' method='get'>
 
 <div class = 'box'style = 'position:absolute;margin-top:530px;margin-left:635px;'></div>
