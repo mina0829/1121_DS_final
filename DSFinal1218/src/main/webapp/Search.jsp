@@ -7,13 +7,11 @@
 <title>GoogleSearch</title>
 
 <style type="text/css">
-	 body {
-      background-image: url('background.png'); /* Replace with the actual path to your PNG image */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin: 0; /* Reset default body margin */
-      padding: 0; /* Reset default body padding */
+	 body { 
+	 background-image: url('background5.jpeg');
+     background-size: cover;
+      margin: 0; 
+      padding: 0;
     }
 .button{
 	position:absolute;
@@ -23,6 +21,7 @@
 	left:50%;
 	top:50%;
 }
+
 .border-style {
 	border-radius:75px/90px;
 }
@@ -202,23 +201,9 @@
 }
 
 .box:after{
- 
+
 }
-/*
-@-webkit-keyframes shadow{
-  0%,100%{
-    left:54px;
-    width:40px;
-    background:#eaeaea;
-  }
-  50%{
-    top:126px;
-    left:50px;   
-    width:50px;
-    height:7px;
-    background:#eee;
-  }
-}*/
+
 </style>
 <script type="text/javascript">
 function click10() {
@@ -239,9 +224,9 @@ function click80() {
 }
 </script>
 </head>
-<!--
-<body style='background-color:#EBCCA3'>
--->
+
+<body>
+
 <form action='${requestUri}' method='get'>
 
 <div class = 'box'style = 'position:absolute;margin-top:530px;margin-left:635px;'></div>
@@ -250,7 +235,7 @@ function click80() {
 <input type='text' class="border-style" id="padding"  
 style='font-size:120%;position:absolute;left:50%;top:48%;
 margin-top:-47px;margin-left:-400px;width:800px;height:45px' name='keyword' placeholder='請輸入關鍵字'
-onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" / required>
+onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" />
 </div>
 <div>
 <button type='button' class='button' name='button20' onclick='click10()' style='border-radius:10px;cursor:pointer;margin-left:-100px'>10</button>
@@ -264,13 +249,9 @@ onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" / required>
 <div>
 <button type='button' class='button' name='button80' onclick='click80()' style='border-radius:10px;cursor:pointer;margin-left:52.5px'>80</button>
 </div>
-<!-- 
+
 <div>
-<input type='text' name='searchNum' value='3' style='color:#EBCCA3;border-style:none;background-color:#EBCCA3'>
-</div>
- -->
-<div>
-<input type='image' src="search2.png" 
+<input type='image' src="search3.png" 
 style='position:absolute;width:37px;height:37px;left:50%;top:50%;margin-top:-55px;
 margin-left:368px '/>
 </div>
