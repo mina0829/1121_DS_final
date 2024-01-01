@@ -111,6 +111,8 @@ public class GoogleQuery {
 				String newCiteUrl = URLDecoder.decode(citeUrl, "UTF-8");
 
 				System.out.println("Title: " + title + " , url: " + newCiteUrl);
+				
+				
 
 				// 將獲得之連結建立為WebPage，並作為WebTree的root
 				WebPage rootPage = new WebPage(newCiteUrl);
@@ -120,19 +122,32 @@ public class GoogleQuery {
 
 				// 用HtmlScraping class讀取此連結之網頁內容、抓出children的連結
 				HtmlScraping htmlScraping = new HtmlScraping(newCiteUrl);
-				childrenUrl = htmlScraping.findChildren();
-
-				// 將children加入tree中
-				for (String url : childrenUrl) {
-					tree.root.addChild(new WebNode(new WebPage(url)));
+				//childrenUrl = htmlScraping.findChildren();
+				
+				
+				
+				//網址不是想要的就直接排除不浪費時間抓
+				if(newCiteUrl.contains("org")) {
+					tree.root.unWanted(0);
+				}else if(newCiteUrl.contains("gov")) {
+					tree.root.unWanted(0);
+				}else if(newCiteUrl.contains("facebook")) {
+					tree.root.unWanted(0);
+				}else if(newCiteUrl.contains("spotify")) {
+					tree.root.Wanted(0);
+				}else {
+					// 將children加入tree中
+					childrenUrl = htmlScraping.findChildren();
+					for (String url : childrenUrl) {
+						tree.root.addChild(new WebNode(new WebPage(url)));
+					}
+					tree.setPostOrderScore(keywords);
+					
 				}
 				
 				
-				
-				
-				
 				// 計算出這個tree的總分(root是加總)
-				tree.setPostOrderScore(keywords);
+				//tree.setPostOrderScore(keywords);
 				
 				
 				finalRank.add(tree);
@@ -160,8 +175,7 @@ public class GoogleQuery {
 		finalRank = sortT.getSortedList();
 		
 		return finalRank;
-		//此時完成第一次排序，可以另外寫一個method，利用fetchcontent讀取內容，再把你想比對的資料套進去hw10(lcs裡）
-		//回傳值會是string或是ArrayList<String>以加入keywordlist，需要修改一下hw10，原本是回傳lcs的長度
+		
 		
 		
 		
