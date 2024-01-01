@@ -113,7 +113,7 @@
             style='font-size:120%;position:absolute;left:50%;top:48%;
             margin-top:-47px;margin-left:-400px;width:800px;height:45px' 
             name='keyword' placeholder='請輸入關鍵字'
-            onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" />
+            onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" required/>
     </div>
 
     <div>
