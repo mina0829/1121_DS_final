@@ -55,13 +55,18 @@ public class Main extends HttpServlet {
 		keywords = new ArrayList<Keyword>();
 		Keyword keyworda = new Keyword("歌詞",0,4);
 		Keyword keywordb = new Keyword("作詞",0,3);
-		Keyword keywordc = new Keyword("字典",0,-2);
+		Keyword keywordc = new Keyword("字典",0,-4);
 		Keyword keywordd = new Keyword("新聞",0,-2);
-		Keyword keyworde = new Keyword("lyrics",0,3);
-		Keyword keywordf = new Keyword("MV",0,3);
-		Keyword keywordg = new Keyword("Music",0,3);
-		Keyword keywordh = new Keyword("旅遊",0, -4);
-		Keyword keywordi = new Keyword("購物",0, -4);
+		Keyword keywordk = new Keyword("歌",0,1);
+		
+		Keyword keyworde = new Keyword("lyrics",0,4);
+		Keyword keywordf = new Keyword("MV",0,4);
+		Keyword keywordg = new Keyword("Music",0,4);
+		
+		Keyword keywordh = new Keyword("旅遊",0, -10);
+		Keyword keywordl = new Keyword("tour",0, -10);
+		Keyword keywordi = new Keyword("購物",0, -10);
+		Keyword keywordj = new Keyword("百科",0,-10);
 		
 		keywords.add(keyworda);
 		keywords.add(keywordb);
@@ -72,6 +77,9 @@ public class Main extends HttpServlet {
 		keywords.add(keywordg);
 		keywords.add(keywordh);
 		keywords.add(keywordi);
+		keywords.add(keywordj);
+		keywords.add(keywordk);
+		keywords.add(keywordl);
 
 		
 		//連接到GoogleQuery class，進行搜尋
