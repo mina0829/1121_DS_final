@@ -118,17 +118,17 @@
 
     <div>
         <button type='button' class='button' name='button10' onclick='click10()' 
-            style='border-radius:10px;cursor:pointer;margin-left:-100px'>10</button>
+            style='border-radius:10px;cursor:pointer;margin-left:-100px'>20</button>
     </div>
 
     <div>
         <button type='button' class='button' name='button20' onclick='click20()' 
-            style='border-radius:10px;cursor:pointer;margin-left:-47.5px'>20</button>
+            style='border-radius:10px;cursor:pointer;margin-left:-47.5px'>40</button>
     </div>
 
     <div>
         <button type='button' class='button' name='button40' onclick='click40()' 
-            style='border-radius:10px;cursor:pointer;margin-left:2.5px'>40</button>
+            style='border-radius:10px;cursor:pointer;margin-left:2.5px'>60</button>
     </div>
 
     <div>
