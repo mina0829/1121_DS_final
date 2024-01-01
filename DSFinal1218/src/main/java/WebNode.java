@@ -12,6 +12,14 @@ public class WebNode
 	{
 		this.webPage = webPage;
 		this.children = new ArrayList<WebNode>();
+		
+	}
+	
+	public void unWanted(int nWeight) {
+		this.nodeScore=-100;
+	}
+	public void Wanted(int nWeight) {
+		this.nodeScore=10000;
 	}
 
 	public void setNodeScore(ArrayList<Keyword> keywords) throws IOException
