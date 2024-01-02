@@ -82,22 +82,18 @@
 
     function click10() {
         document.getElementsByName("searchNum")[0].value = 10;
-        document.getElementsByName("button10")[0].classList.toggle('clicked');
     }
 
     function click20() {
         document.getElementsByName("searchNum")[0].value = 20;
-        document.getElementsByName("button20")[0].classList.toggle('clicked');
     }
 
     function click40() {
         document.getElementsByName("searchNum")[0].value = 40;
-        document.getElementsByName("button40")[0].classList.toggle('clicked');
     }
 
     function click80() {
         document.getElementsByName("searchNum")[0].value = 80;
-        document.getElementsByName("button80")[0].classList.toggle('clicked');
     }
 
 </script>
