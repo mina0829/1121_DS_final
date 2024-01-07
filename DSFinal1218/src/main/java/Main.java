@@ -61,12 +61,18 @@ public class Main extends HttpServlet {
 		
 		Keyword keyworde = new Keyword("lyrics",0,4);
 		Keyword keywordf = new Keyword("MV",0,4);
-		Keyword keywordg = new Keyword("Music",0,4);
+		Keyword keywordg = new Keyword("Music",0,6);
+		Keyword keywordm = new Keyword("news",0,-4);
 		
 		Keyword keywordh = new Keyword("旅遊",0, -10);
 		Keyword keywordl = new Keyword("tour",0, -10);
-		Keyword keywordi = new Keyword("購物",0, -10);
+		Keyword keywordi = new Keyword("購物",0, -20);
+		Keyword keywordn = new Keyword("shop",0, -10);
 		Keyword keywordj = new Keyword("百科",0,-10);
+		Keyword keywordo = new Keyword("fashion",0,-10);
+		Keyword keywordp = new Keyword("album",0,1);
+	
+		
 		
 		keywords.add(keyworda);
 		keywords.add(keywordb);
@@ -80,13 +86,19 @@ public class Main extends HttpServlet {
 		keywords.add(keywordj);
 		keywords.add(keywordk);
 		keywords.add(keywordl);
-
+		keywords.add(keywordm);
+		keywords.add(keywordn);
+		keywords.add(keywordo);
+		keywords.add(keywordp);
+		
+		
+		//keywords.add(keywordq);
 		
 		//連接到GoogleQuery class，進行搜尋
-		GoogleQuery google = new GoogleQuery(request.getParameter("keyword"), keywords);
+		int searchNum = Integer.parseInt(request.getParameter("searchNum"));
+		GoogleQuery google = new GoogleQuery((request.getParameter("keyword")+"歌詞"), keywords, searchNum);
 		
 		ArrayList <WebTree>wbrs = google.query();
-		
 		
 		int num = 0;
 		
@@ -101,6 +113,33 @@ public class Main extends HttpServlet {
 			i++;
 		
 		}
+		
+
+		HashMap<String, ArrayList<String>> parentChildPairs = new HashMap<>();
+		    
+		    int j=0;
+		    for (WebTree t : wbrs) {
+		        rs[j][0] = "<a href='" + t.root.webPage.url + "'>" + t.root.webPage.name + "</a>";
+		        rs[j][1] = t.root.webPage.url;
+		        j++;
+		        
+		        ArrayList<String> childUrls = new ArrayList<>();
+		        ArrayList<WebNode> Tchildren = t.root.children;
+
+		        for (WebNode c : Tchildren) {
+		            childUrls.add(c.webPage.url);
+		            System.out.println("Parent: " + t.root.webPage.name + " Child: " + c.webPage.url);
+		        }
+
+		        parentChildPairs.put("<a href='" + t.root.webPage.url + "'>" + t.root.webPage.name + "</a>", childUrls);
+		        
+		        System.out.println("\n");
+		    }
+		    
+		    
+		    request.setAttribute("parentChildPairs", parentChildPairs);
+		   
+
 	
 		request.getRequestDispatcher("googleitem.jsp")
 		 .forward(request, response); 
