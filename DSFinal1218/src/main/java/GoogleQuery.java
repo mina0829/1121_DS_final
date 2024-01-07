@@ -27,18 +27,21 @@ public class GoogleQuery {
 	public ArrayList<String> childrenUrl;
 	public ArrayList<Keyword> keywords;
 	public WebTreeSort TS;
-	//longest common subsequence
+	public ArrayList<WebNode>children;
 
-	public GoogleQuery(String searchKeyword, ArrayList<Keyword> keywords) {
+
+	public GoogleQuery(String searchKeyword, ArrayList<Keyword> keywords, int searchNum) {
 		this.searchKeyword = searchKeyword;
 		this.webTreeList = new ArrayList<WebTree>();
 		this.childrenUrl = new ArrayList<String>();
 		this.keywords = keywords;
+		int count =searchNum+1;
+		
 		//this.TS = new WebTreeSort();
 		try {
 			// 產生google搜尋網址
 			String encodeKeyword = java.net.URLEncoder.encode(searchKeyword, "utf-8");
-			this.url = "https://www.google.com/search?q=" + encodeKeyword + "&oe=utf8&num=20";
+			this.url = "https://www.google.com/search?q=" + encodeKeyword + "&oe=utf8&num="+count;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -75,16 +78,13 @@ public class GoogleQuery {
 			content = fetchContent();
 		}
 
-	
 		HashMap<String, String> retVal = new HashMap<String, String>();
-		TreeMap<Double, String> sortedScores = new TreeMap<Double, String>();
+		
 		ArrayList<WebTree> finalRank = new ArrayList<WebTree>();
-
-
+		this.children = new ArrayList<WebNode>();
+		
 		// 讀取搜尋頁面的內容
 		Document doc = Jsoup.parse(content);
-		//第一次爬完後取出前幾筆比對
-		
 
 		// 挑選出想要的內容；搜尋結果之標題與網址
 		Elements lis = doc.select("div");
@@ -122,10 +122,7 @@ public class GoogleQuery {
 
 				// 用HtmlScraping class讀取此連結之網頁內容、抓出children的連結
 				HtmlScraping htmlScraping = new HtmlScraping(newCiteUrl);
-				//childrenUrl = htmlScraping.findChildren();
-				
-				
-				
+								
 				//網址不是想要的就直接排除不浪費時間抓
 				if(newCiteUrl.contains("org")) {
 					tree.root.unWanted(0);
@@ -137,24 +134,30 @@ public class GoogleQuery {
 					tree.root.Wanted(0);
 				}else {
 					// 將children加入tree中
+					int count =0;
 					childrenUrl = htmlScraping.findChildren();
 					for (String url : childrenUrl) {
-						tree.root.addChild(new WebNode(new WebPage(url)));
+						WebPage children =new WebPage(url);
+						WebNode childNode = new WebNode(children);
+						
+						children.url = url;
+						tree.root.addChild(childNode);
+						System.out.println("child: "+url);
+						this.children.add(childNode);
+						
 					}
+					
 					tree.setPostOrderScore(keywords);
 					
 				}
 				
-				
-				// 計算出這個tree的總分(root是加總)
-				//tree.setPostOrderScore(keywords);
-				
+
 				
 				finalRank.add(tree);
 				
 				
 				System.out.println(tree.root.nodeScore);
-				sortedScores.put(tree.root.nodeScore, newCiteUrl);
+			
 
 			} catch (IndexOutOfBoundsException e) {
 				// e.printStackTrace();
@@ -163,22 +166,16 @@ public class GoogleQuery {
 		}
 		
 		WebTreeSort sortT = new WebTreeSort(finalRank);
-		if(!finalRank.isEmpty()) {
-			System.out.println("size"+finalRank.size());
-			System.out.println("not empty");
-			sortT.sort();
-			System.out.println("size2"+finalRank.size());
-		}else {
-			System.out.println("empty list not added");
-		}
-	
+		sortT.sort();
 		finalRank = sortT.getSortedList();
 		
 		return finalRank;
+		    
 		
-		
-		
-		
+	}
+	
+	public ArrayList<WebNode> getChildren(){
+		return this.children;
 	}
 	
 	
