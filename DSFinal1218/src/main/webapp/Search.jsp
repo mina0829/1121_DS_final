@@ -79,25 +79,36 @@
 </style>
 
 <script type="text/javascript">
-
+	function setDefaultSearchNum() {
+    	document.getElementsByName("searchNum")[0].value = 5;
+	}
+	
     function click10() {
         document.getElementsByName("searchNum")[0].value = 10;
+        document.getElementsByName("button10")[0].classList.toggle('clicked');
     }
 
     function click20() {
         document.getElementsByName("searchNum")[0].value = 20;
+        document.getElementsByName("button20")[0].classList.toggle('clicked');
     }
 
     function click40() {
         document.getElementsByName("searchNum")[0].value = 40;
+        document.getElementsByName("button40")[0].classList.toggle('clicked');
     }
 
     function click80() {
         document.getElementsByName("searchNum")[0].value = 80;
+        document.getElementsByName("button80")[0].classList.toggle('clicked');
     }
 
 </script>
+
+
+
 </head>
+<body onload="setDefaultSearchNum()">
 
 <body>
 <form action='${requestUri}' method='get'>
@@ -131,12 +142,15 @@
         <button type='button' class='button' name='button80' onclick='click80()' 
             style='border-radius:10px;cursor:pointer;margin-left:52.5px'>80</button>
     </div>
-
+    <div>
+    	<input type='hidden' name='searchNum' value='5'>
+	</div>
     <div>
         <input type='image' src="search3.png" 
             style='position:absolute;width:37px;height:37px;left:50%;top:50%;
             margin-top:-55px;margin-left:368px '/>
     </div>
+  
 
     <div>
         <a href ='http://localhost:8080/DSFinal1218/Main'></a>
